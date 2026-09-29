@@ -1,4 +1,4 @@
-@extends('layout.app')
+@extends('admin_app')
 
 @section('title', 'Detail Siwa')
 
@@ -20,10 +20,58 @@
             <div class="card-body">
                 <div class="text-center mb-4">
                     <div class="bg-primary-subtle text-primary rounded-circle d-innlene-flex align-items-center justify-content-center shadow-sm" style="width: 100px; height: 100px;">
-                        
+                        <i class="bi bi-person-fill" style="font-size: 3.5rem;"></i>
                     </div>
+                    <h4 class="mt-3 mb-0 fw-bold">{{ $siswa->nama_siswa }}</h4>
+                    <span class="badge text-bg-secondary mt-1 font-monoscape fs-6">NISN: {{ $siswa->nisn }}</span>
+                </div>
+                <table class="table table-bordered table-striped">
+                        <tbody>
+                            <tr>
+                                <th class="width: 30%;" class="bg-body-tertiary">NISN</th>
+                                <td class="font-monospace fw-semibold">{{ $siswa->nisn }}</td>
+                            </tr>
+                            <tr>
+                                <th class="bg-body-tertiary">Nama Lengkap</th>
+                                <td>{{ $siswa->nama_siswa }}</td>
+                            </tr>
+                            <tr>
+                                <th class="bg-body-tertiary">Jenis Kelamin</th>
+                                <td>
+                                    @if ($siswa->jenis_kelamin == 'Laki-Laki')
+                                       <span class="badge bg-primary-subtle text-primary border border-primary-subtle">
+                                           <i class="bi bi-gender-male me-1"></i> Laki-Laki
+                                       </span>
+                                    @else
+                                       <span class="badge bg-primary-subtle text-primary border border-primary-subtle">
+                                           <i class="bi bi-gender-male me-1"></i> Perempuan
+                                       </span>
+                                    @endif
+                                </td>
+                            </tr>
+                            <tr>
+                               th class="bg-body-tertiary">Tahun Masuk / Angkatan</th>
+                            <td>{{ $siswa->tahun_masuk }}</td>
+                        </tr>
+                        <tr>
+                            <th class="bg-body-tertiary">Tanggal Terdaftar</th>
+                            <td>{{ $siswa->created_at ? $siswa->created_at->format('d F Y, H:i') : '-' }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="card-footer">
+                <div class="d-flex justify-content-between align-items-center">
+                    <a href="{{ route('admin.siswa.index') }}" class="btn btn-secondary">
+                        <i class="bi bi-arrow-left me-1"></i> Kembali
+                    </a>
+                    <a href="{{ route('admin.siswa.addEdit', Crypt::encrypt($siswa->id)) }}" class="btn btn-warning">
+                        <i class="bi bi-pencil-square me-1"></i> Edit Data Siswa
+                    </a>
                 </div>
             </div>
         </div>
     </div>
 </div>
+@endsection

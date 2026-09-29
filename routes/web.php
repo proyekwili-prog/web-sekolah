@@ -50,7 +50,26 @@ route::middleware('auth')->prefix('admin')->group(function () {
         ->name('admin.profile.photo');
 
 });
-    // ================= Ekstrakulikuler =================
+
+    // ================= SISWA =================
+Route::prefix('siswa')->group(function () {
+    Route::get('/siswa', [SiswaController::class, 'index'])
+    ->name('admin.siswa.index');
+
+    Route::get('/siswa/create', [SiswaController::class, 'addEdit'])
+        ->name('admin.siswa.create');
+
+    Route::get('/siswa/{id}/edit', [SiswaController::class, 'addEdit'])
+        ->name('admin.siswa.edit');
+
+    Route::post('/siswa/save/{id?}', [SiswaController::class, 'save'])
+        ->name('admin.siswa.save');
+
+    Route::delete('/siswa/{id}', [SiswaController::class, 'delete'])
+        ->name('admin.siswa.destroy');
+
+});
+
 Route::prefix('ekstrakulikuler')->group(function () {
 
     Route::get('/', [EkstrakulikulerController::class, 'index'])
@@ -64,18 +83,6 @@ Route::prefix('ekstrakulikuler')->group(function () {
     Route::get('/{id}', [EkstrakulikulerController::class, 'index'])
         ->name('admin.ekstrakulikuler.delete');
 
-    // ================= SISWA =================
-
-    Route::get('/siswa', [SiswaController::class, 'index'])
-        ->name('admin.siswa.index');
-    Route::get('/add-edit/{id}', [SiswaController::class, 'addEdit'])
-        ->name('admin.siswa.addEdit');
-    Route::get('/save/{id}', [SiswaController::class, 'save'])
-        ->name('admin.siswa.save');
-    Route::get('/{id}', [SiswaController::class, 'show'])
-        ->name('admin.siswa.show');
-    Route::get('/{id}', [SiswaController::class, 'delete'])
-        ->name('admin.siswa.delete');
 
     // ================= GURU =================
 

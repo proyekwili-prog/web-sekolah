@@ -1,4 +1,6 @@
+```blade
 <!DOCTYPE html>
+
 <html lang="id">
 
 <head>
@@ -8,7 +10,7 @@
     <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('img/apple-icon.png') }}">
     <link rel="icon" type="image/png" href="{{ asset('img/favicon.png') }}">
 
-    <title>Kelola Guru</title>
+    <title>Kelola Siswa</title>
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
 
@@ -19,7 +21,7 @@
     <link href="{{ asset('css/soft-ui-dashboard-tailwind.css') }}" rel="stylesheet">
 
     <style>
-        .foto-guru {
+        .foto-siswa {
             width: 60px;
             height: 60px;
             object-fit: cover;
@@ -38,7 +40,7 @@
         }
 
         /* TOMBOL AKSI */
-        .btn-edit-guru {
+        .btn-edit-siswa {
             display: inline-flex !important;
             align-items: center;
             justify-content: center;
@@ -56,12 +58,12 @@
             white-space: nowrap;
         }
 
-        .btn-edit-guru:hover {
+        .btn-edit-siswa:hover {
             background: #2563eb !important;
             color: white !important;
         }
 
-        .btn-hapus-guru {
+        .btn-hapus-siswa {
             display: inline-flex !important;
             align-items: center;
             justify-content: center;
@@ -79,7 +81,7 @@
             white-space: nowrap;
         }
 
-        .btn-hapus-guru:hover {
+        .btn-hapus-siswa:hover {
             background: #dc2626 !important;
             color: white !important;
         }
@@ -99,11 +101,10 @@
             min-width: 170px;
         }
     </style>
+
 </head>
 
-
 <body class="m-0 font-sans antialiased font-normal text-base leading-default bg-gray-50 text-slate-500">
-
 
     <!-- ===================================================== -->
     <!-- SIDEBAR -->
@@ -115,7 +116,6 @@
         rounded-2xl border-0 bg-white p-0 antialiased shadow-none
         transition-transform duration-200 xl:left-0 xl:translate-x-0
         xl:bg-transparent">
-
 
         <!-- LOGO -->
         <div class="h-19.5">
@@ -137,17 +137,14 @@
 
         </div>
 
-
         <hr
             class="h-px mt-0 bg-transparent
             bg-gradient-to-r from-transparent via-black/40 to-transparent">
-
 
         <!-- MENU -->
         <div class="items-center block w-auto max-h-screen overflow-auto h-sidenav">
 
             <ul class="flex flex-col pl-0 mb-0">
-
 
                 <!-- DASHBOARD -->
                 <li class="mt-0.5 w-full">
@@ -173,7 +170,6 @@
 
                 </li>
 
-
                 <!-- PROFILE -->
                 <li class="mt-0.5 w-full">
 
@@ -198,22 +194,19 @@
 
                 </li>
 
-
-                <!-- GURU AKTIF -->
+                <!-- GURU -->
                 <li class="mt-0.5 w-full">
 
                     <a
                         href="{{ route('admin.guru') }}"
-                        class="py-2.7 shadow-soft-xl text-sm my-0 mx-4
-                        flex items-center whitespace-nowrap rounded-lg
-                        bg-white px-4 font-semibold text-slate-700">
+                        class="py-2.7 text-sm my-0 mx-4 flex items-center
+                        whitespace-nowrap px-4">
 
                         <div
-                            class="bg-gradient-to-tl from-purple-700 to-pink-500
-                            shadow-soft-2xl mr-2 flex h-8 w-8
-                            items-center justify-center rounded-lg">
+                            class="mr-2 flex h-8 w-8 items-center justify-center
+                            rounded-lg bg-white shadow-soft-2xl">
 
-                            <i class="fas fa-chalkboard-teacher text-white text-xs"></i>
+                            <i class="fas fa-chalkboard-teacher text-slate-800 text-xs"></i>
 
                         </div>
 
@@ -225,20 +218,21 @@
 
                 </li>
 
-
-                <!-- SISWA -->
+                <!-- SISWA AKTIF -->
                 <li class="mt-0.5 w-full">
 
                     <a
-                        href="#"
-                        class="py-2.7 text-sm my-0 mx-4 flex items-center
-                        whitespace-nowrap px-4">
+                        href="{{ route('admin.siswa.index') }}"
+                        class="py-2.7 shadow-soft-xl text-sm my-0 mx-4
+                        flex items-center whitespace-nowrap rounded-lg
+                        bg-white px-4 font-semibold text-slate-700">
 
                         <div
-                            class="mr-2 flex h-8 w-8 items-center justify-center
-                            rounded-lg bg-white shadow-soft-2xl">
+                            class="bg-gradient-to-tl from-purple-700 to-pink-500
+                            shadow-soft-2xl mr-2 flex h-8 w-8
+                            items-center justify-center rounded-lg">
 
-                            <i class="fas fa-user-graduate text-slate-800 text-xs"></i>
+                            <i class="fas fa-user-graduate text-white text-xs"></i>
 
                         </div>
 
@@ -249,7 +243,6 @@
                     </a>
 
                 </li>
-
 
                 <!-- BERITA -->
                 <li class="mt-0.5 w-full">
@@ -275,7 +268,6 @@
 
                 </li>
 
-
                 <!-- EKSTRAKURIKULER -->
                 <li class="mt-0.5 w-full">
 
@@ -299,7 +291,6 @@
                     </a>
 
                 </li>
-
 
                 <!-- GALERI -->
                 <li class="mt-0.5 w-full">
@@ -331,8 +322,6 @@
 
     </aside>
 
-
-
     <!-- ===================================================== -->
     <!-- KONTEN UTAMA -->
     <!-- ===================================================== -->
@@ -340,7 +329,6 @@
     <main
         class="ease-soft-in-out xl:ml-68.5 relative h-full
         max-h-screen bg-gray-50 transition-all duration-200">
-
 
         <!-- NAVBAR -->
         <nav
@@ -374,17 +362,16 @@
                             before:float-left before:pr-2
                             before:content-['/']">
 
-                            Kelola Guru
+                            Kelola Siswa
 
                         </li>
 
                     </ol>
 
-
                     <h6
                         class="mb-2 ml-2 font-bold text-white capitalize">
 
-                        Kelola Guru
+                        Kelola Siswa
 
                     </h6>
 
@@ -393,8 +380,6 @@
             </div>
 
         </nav>
-
-
 
         <!-- ===================================================== -->
         <!-- BANNER -->
@@ -417,11 +402,10 @@
                     opacity-60">
                 </span>
 
-
                 <div class="relative z-20 px-8">
 
                     <h4 class="text-white font-bold text-2xl">
-                        Kelola Guru
+                        Kelola Siswa
                     </h4>
 
                     <p class="text-white">
@@ -434,10 +418,8 @@
 
         </div>
 
-
-
         <!-- ===================================================== -->
-        <!-- DATA GURU -->
+        <!-- DATA SISWA -->
         <!-- ===================================================== -->
 
         <div class="w-full px-6 mx-auto mt-6">
@@ -447,7 +429,6 @@
                 break-words bg-white border-0 shadow-soft-xl
                 rounded-2xl">
 
-
                 <!-- HEADER -->
                 <div
                     class="flex items-center justify-between
@@ -456,19 +437,18 @@
                     <div>
 
                         <h6 class="font-bold text-slate-700 mb-1">
-                            Data Guru
+                            Data Siswa
                         </h6>
 
                         <p class="text-sm text-slate-400 mb-0">
-                            Daftar guru yang terdaftar
+                            Daftar siswa yang terdaftar
                         </p>
 
                     </div>
 
-
-                    <!-- TAMBAH GURU -->
+                    <!-- TAMBAH SISWA -->
                     <a
-                        href="{{ route('admin.siswa.create') }}"
+                        href="{{ route('admin.siswa.addEdit') }}"
                         style="
                             display:inline-flex;
                             align-items:center;
@@ -488,8 +468,6 @@
 
                 </div>
 
-
-
                 <!-- SUCCESS -->
                 @if (session('success'))
 
@@ -505,8 +483,6 @@
                     </div>
 
                 @endif
-
-
 
                 <!-- ERROR -->
                 @if ($errors->any())
@@ -528,8 +504,6 @@
 
                 @endif
 
-
-
                 <!-- ===================================================== -->
                 <!-- TABLE -->
                 <!-- ===================================================== -->
@@ -541,7 +515,6 @@
                         <table
                             class="items-center w-full mb-0 align-top border-collapse"
                             style="min-width:900px;">
-
 
                             <!-- HEADER -->
                             <thead>
@@ -557,46 +530,41 @@
 
                                     </th>
 
+                                    <th
+                                        class="px-6 py-3 text-left
+                                        text-xxs font-bold uppercase
+                                        text-slate-400">
+
+                                        NISN
+
+                                    </th>
 
                                     <th
                                         class="px-6 py-3 text-left
                                         text-xxs font-bold uppercase
                                         text-slate-400">
 
-                                        Foto
+                                        Nama Siswa
 
                                     </th>
-
 
                                     <th
                                         class="px-6 py-3 text-left
                                         text-xxs font-bold uppercase
                                         text-slate-400">
 
-                                        Nama Guru
+                                        Jenis Kelamin
 
                                     </th>
-
 
                                     <th
                                         class="px-6 py-3 text-left
                                         text-xxs font-bold uppercase
                                         text-slate-400">
 
-                                        NIP
+                                        Tahun Masuk
 
                                     </th>
-
-
-                                    <th
-                                        class="px-6 py-3 text-left
-                                        text-xxs font-bold uppercase
-                                        text-slate-400">
-
-                                        Mata Pelajaran
-
-                                    </th>
-
 
                                     <th
                                         class="kolom-aksi px-6 py-3
@@ -612,15 +580,12 @@
 
                             </thead>
 
-
-
                             <!-- DATA -->
                             <tbody>
 
-                                @forelse ($guru as $item)
+                                @forelse ($siswa as $item)
 
                                     <tr>
-
 
                                         <!-- NO -->
                                         <td class="px-6 py-4">
@@ -635,31 +600,18 @@
 
                                         </td>
 
-
-
-                                        <!-- FOTO -->
+                                        <!-- NISN -->
                                         <td class="px-6 py-4">
 
-                                            @if ($item->foto)
+                                            <p
+                                                class="mb-0 text-sm
+                                                font-semibold text-slate-700">
 
-                                                <img
-                                                    src="{{ asset('storage/' . $item->foto) }}"
-                                                    alt="Foto Guru"
-                                                    class="foto-guru">
+                                                {{ $item->nisn }}
 
-                                            @else
-
-                                                <div class="foto-default">
-
-                                                    <i class="fas fa-user"></i>
-
-                                                </div>
-
-                                            @endif
+                                            </p>
 
                                         </td>
-
-
 
                                         <!-- NAMA -->
                                         <td class="px-6 py-4">
@@ -668,82 +620,71 @@
                                                 class="mb-0 text-sm
                                                 font-semibold text-slate-700">
 
-                                                {{ $item->nama_guru }}
+                                                {{ $item->nama_siswa }}
 
                                             </p>
 
                                         </td>
 
-
-
-                                        <!-- NIP -->
+                                        <!-- JENIS KELAMIN -->
                                         <td class="px-6 py-4">
 
                                             <p
                                                 class="mb-0 text-sm
                                                 text-slate-500">
 
-                                                {{ $item->nip }}
+                                                {{ $item->jenis_kelamin }}
 
                                             </p>
 
                                         </td>
 
-
-
-                                        <!-- MAPEL -->
+                                        <!-- TAHUN MASUK -->
                                         <td class="px-6 py-4">
 
                                             <p
                                                 class="mb-0 text-sm
                                                 text-slate-500">
 
-                                                {{ $item->mapel }}
+                                                {{ $item->tahun_masuk }}
 
                                             </p>
 
                                         </td>
 
-
-
-                                        <!-- ================================================= -->
                                         <!-- AKSI EDIT + HAPUS -->
-                                        <!-- ================================================= -->
-
                                         <td
                                             class="kolom-aksi px-6 py-4">
 
                                             <div class="aksi-wrapper">
 
-
                                                 <!-- EDIT -->
                                                 <a
-                                                    href="{{ route('admin.guru.edit', $item->id) }}"
-                                                    class="btn-edit-guru">
+                                                    href="{{ route('admin.siswa.addEdit', $item->id) }}"
+                                                    class="btn-edit-siswa">
 
-                                                    <i class="fas fa-edit"
-                                                        style="margin-right:5px;"></i>
+                                                    <i
+                                                        class="fas fa-edit"
+                                                        style="margin-right:5px;">
+                                                    </i>
 
                                                     Edit
 
                                                 </a>
 
-
-
                                                 <!-- HAPUS -->
                                                 <form
-                                                    action="{{ route('admin.guru.destroy', $item->id) }}"
+                                                    action="{{ route('admin.siswa.delete', $item->id) }}"
                                                     method="POST"
                                                     style="display:inline-block; margin:0;"
-                                                    onsubmit="return confirm('Yakin ingin menghapus data guru ini?');">
+                                                    onsubmit="return confirm('Yakin ingin menghapus data siswa ini?');">
 
                                                     @csrf
                                                     @method('DELETE')
 
-
                                                     <button
                                                         type="submit"
-                                                        class="btn-hapus-guru">
+                                                        class="btn-hapus-siswa">
 
                                                         <i
                                                             class="fas fa-trash"
@@ -756,13 +697,11 @@
 
                                                 </form>
 
-
                                             </div>
 
                                         </td>
 
                                     </tr>
-
 
                                 @empty
 
@@ -781,7 +720,7 @@
                                                 class="mt-3 mb-0
                                                 text-sm text-slate-400">
 
-                                                Belum ada data guru.
+                                                Belum ada data siswa.
 
                                             </p>
 
@@ -804,8 +743,6 @@
         </div>
 
     </main>
-
-
 
     <!-- JAVASCRIPT -->
 

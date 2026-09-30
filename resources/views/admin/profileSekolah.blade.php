@@ -184,7 +184,7 @@
 
                 <li class="mt-0.5 w-full">
 
-                    <a href="{{ route('admin.guru') }}"
+                    <a href="{{ route('admin.guru.index') }}"
                         class="py-2.7 text-sm my-0 mx-4 flex items-center
                         whitespace-nowrap px-4">
 
@@ -232,7 +232,7 @@
 
                 <li class="mt-0.5 w-full">
 
-                    <a href="{{ route('admin.berita') }}"
+                    <a href="{{ route('admin.berita.index') }}"
                         class="py-2.7 text-sm my-0 mx-4 flex items-center
                         whitespace-nowrap px-4">
 
@@ -256,7 +256,7 @@
 
                 <li class="mt-0.5 w-full">
 
-                    <a href="{{ route('admin.ekstrakulikuler') }}"
+                    <a href="{{ route('admin.ekstrakulikuler.index') }}"
                         class="py-2.7 text-sm my-0 mx-4 flex items-center
                         whitespace-nowrap px-4">
 
@@ -280,7 +280,7 @@
 
                 <li class="mt-0.5 w-full">
 
-                    <a href="{{ route('admin.galeri') }}"
+                    <a href="{{ route('admin.galeri.index') }}"
                         class="py-2.7 text-sm my-0 mx-4 flex items-center
                         whitespace-nowrap px-4">
 
@@ -441,7 +441,7 @@
                         <!-- FORM UPLOAD -->
 
                         <form id="form-upload-foto"
-                            action="{{ route('admin.profile.photo') }}"
+                            action="{{ route('admin.profile') }}"
                             method="POST"
                             enctype="multipart/form-data">
 

@@ -47,7 +47,7 @@ class ProfileSekolahController extends Controller
         $profile->save();
 
         return redirect()
-            ->route('admin.profile')
+            ->route('admin.profile-sekolah')
             ->with('success', 'Profile sekolah berhasil diperbarui.');
     }
 
@@ -76,7 +76,7 @@ class ProfileSekolahController extends Controller
         $profile->save();
 
         return redirect()
-            ->route('admin.profile')
+            ->route('admin.profile-sekolah')
             ->with('success', 'Logo sekolah berhasil diperbarui.');
     }
 }

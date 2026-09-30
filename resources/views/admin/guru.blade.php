@@ -203,7 +203,7 @@
                 <li class="mt-0.5 w-full">
 
                     <a
-                        href="{{ route('admin.guru') }}"
+                        href="{{ route('admin.guru.index') }}"
                         class="py-2.7 shadow-soft-xl text-sm my-0 mx-4
                         flex items-center whitespace-nowrap rounded-lg
                         bg-white px-4 font-semibold text-slate-700">

@@ -11,7 +11,7 @@ class Siswa extends Model
     /** @use HasFactory<SiswaFactory> */
     use HasFactory;
 
-    protected $table = 'siswa';
+    protected $table = 'siswas';
 
     protected $fillable = [
         'nisn',

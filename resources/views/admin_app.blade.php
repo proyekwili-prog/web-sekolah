@@ -6,12 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="apple-touch-icon"
-          sizes="76x76"
-          href="{{ asset('img/apple-icon.png') }}">
+        sizes="76x76"
+        href="{{ asset('img/apple-icon.png') }}">
 
     <link rel="icon"
-          type="image/png"
-          href="{{ asset('img/favicon.png') }}">
+        type="image/png"
+        href="{{ asset('img/favicon.png') }}">
 
     <title>Dashboard - SMK YPC TASIKMALAYA</title>
 
@@ -47,35 +47,62 @@
     <link
         href="{{ asset('css/soft-ui-dashboard-tailwind.css?v=1.0.5') }}"
         rel="stylesheet">
+
 </head>
+
 
 <body class="m-0 font-sans text-base antialiased font-normal leading-default bg-gray-50 text-slate-500">
 
+
+    <!-- ===================================================== -->
     <!-- SIDEBAR -->
+    <!-- ===================================================== -->
+
     <aside
         class="max-w-62.5 ease-nav-brand z-990 fixed inset-y-0 my-4 ml-4 block w-full
         -translate-x-full flex-wrap items-center justify-between overflow-y-auto
-        rounded-2xl border-0 bg-white p-0 antialiased shadow-none transition-transform
-        duration-200 xl:left-0 xl:translate-x-0 xl:bg-transparent">
+        rounded-2xl border-0 bg-white p-0 antialiased shadow-none
+        transition-transform duration-200 xl:left-0 xl:translate-x-0
+        xl:bg-transparent">
 
-        <!-- LOGO -->
+
+        <!-- ================= LOGO ================= -->
+
         <div class="h-19.5">
 
-            <a class="block px-8 py-6 m-0 text-sm whitespace-nowrap text-slate-700"
+            <a
+                class="block px-8 py-6 m-0 text-sm whitespace-nowrap text-slate-700"
                 href="{{ route('admin.dashboard') }}">
 
-                <img
-                    src="{{ !empty($profile->logo) && file_exists(storage_path('app/public/' . $profile->logo))
-                        ? asset('storage/' . $profile->logo)
-                        : asset('img/logo-ct.png') }}"
-                    alt="Logo Sekolah"
-                    style="
-                        width: 55px;
-                        height: 55px;
-                        object-fit: contain;
-                        display: inline-block;
-                        vertical-align: middle;
-                    ">
+
+                @if(isset($profile) && !empty($profile->logo))
+
+                    <img
+                        src="{{ asset('storage/' . $profile->logo) }}"
+                        alt="Logo Sekolah"
+                        style="
+                            width:55px;
+                            height:55px;
+                            object-fit:contain;
+                            display:inline-block;
+                            vertical-align:middle;
+                        ">
+
+                @else
+
+                    <img
+                        src="{{ asset('img/logo-ct.png') }}"
+                        alt="Logo Sekolah"
+                        style="
+                            width:55px;
+                            height:55px;
+                            object-fit:contain;
+                            display:inline-block;
+                            vertical-align:middle;
+                        ">
+
+                @endif
+
 
                 <span class="ml-1 font-semibold">
                     SMK YPC TASIKMALAYA
@@ -85,17 +112,25 @@
 
         </div>
 
-        <hr class="h-px mt-0 bg-transparent bg-gradient-to-r
-        from-transparent via-black/40 to-transparent">
 
-        <!-- MENU -->
+        <hr
+            class="h-px mt-0 bg-transparent bg-gradient-to-r
+            from-transparent via-black/40 to-transparent">
+
+
+        <!-- ================================================= -->
+        <!-- MENU SIDEBAR -->
+        <!-- ================================================= -->
+
         <div
             class="items-center block w-auto max-h-screen overflow-auto
             h-sidenav grow basis-full">
 
             <ul class="flex flex-col pl-0 mb-0">
 
-                <!-- DASHBOARD -->
+
+                <!-- ================= DASHBOARD ================= -->
+
                 <li class="mt-0.5 w-full">
 
                     <a
@@ -123,7 +158,8 @@
                 </li>
 
 
-                <!-- PROFILE SEKOLAH -->
+                <!-- ================= PROFILE ================= -->
+
                 <li class="mt-0.5 w-full">
 
                     <a
@@ -149,11 +185,12 @@
                 </li>
 
 
-                <!-- KELOLA GURU -->
+                <!-- ================= GURU ================= -->
+
                 <li class="mt-0.5 w-full">
 
                     <a
-                        href="{{ route('admin.guru') }}"
+                        href="{{ route('admin.guru.index') }}"
                         class="py-2.7 text-sm ease-nav-brand my-0 mx-4
                         flex items-center whitespace-nowrap px-4
                         transition-colors">
@@ -175,7 +212,8 @@
                 </li>
 
 
-                <!-- KELOLA SISWA -->
+                <!-- ================= SISWA ================= -->
+
                 <li class="mt-0.5 w-full">
 
                     <a
@@ -201,11 +239,12 @@
                 </li>
 
 
-                <!-- KELOLA BERITA -->
+                <!-- ================= BERITA ================= -->
+
                 <li class="mt-0.5 w-full">
 
                     <a
-                        href="{{ route('admin.berita') }}"
+                        href="{{ route('admin.berita.index') }}"
                         class="py-2.7 text-sm ease-nav-brand my-0 mx-4
                         flex items-center whitespace-nowrap px-4
                         transition-colors">
@@ -227,7 +266,8 @@
                 </li>
 
 
-                <!-- EKSTRAKULIKULER -->
+                <!-- ================= EKSTRAKULIKULER ================= -->
+
                 <li class="mt-0.5 w-full">
 
                     <a
@@ -253,11 +293,12 @@
                 </li>
 
 
-                <!-- GALERI -->
+                <!-- ================= GALERI ================= -->
+
                 <li class="mt-0.5 w-full">
 
                     <a
-                        href="{{ route('admin.galeri') }}"
+                        href="{{ route('admin.galeri.index') }}"
                         class="py-2.7 text-sm ease-nav-brand my-0 mx-4
                         flex items-center whitespace-nowrap px-4
                         transition-colors">
@@ -283,15 +324,25 @@
         </div>
 
     </aside>
+
+
+    <!-- ===================================================== -->
     <!-- END SIDEBAR -->
+    <!-- ================================================= -->
 
 
+
+    <!-- ===================================================== -->
     <!-- MAIN CONTENT -->
+    <!-- ===================================================== -->
+
     <main
         class="ease-soft-in-out xl:ml-68.5 relative min-h-screen
         rounded-xl transition-all duration-200">
 
-        <!-- NAVBAR -->
+
+        <!-- ================= NAVBAR ================= -->
+
         <nav
             class="relative flex flex-wrap items-center justify-between
             px-0 py-2 mx-6 transition-all shadow-none duration-250
@@ -301,7 +352,9 @@
                 class="flex items-center justify-between w-full px-4 py-1
                 mx-auto flex-wrap-inherit">
 
+
                 <!-- BREADCRUMB -->
+
                 <div>
 
                     <ol
@@ -313,7 +366,9 @@
                             <a
                                 class="opacity-50 text-slate-700"
                                 href="javascript:;">
+
                                 Pages
+
                             </a>
 
                         </li>
@@ -331,6 +386,7 @@
 
                     </ol>
 
+
                     <h6 class="mb-0 font-bold capitalize">
                         Dashboard
                     </h6>
@@ -338,12 +394,15 @@
                 </div>
 
 
-                <!-- NAVBAR RIGHT -->
+                <!-- ================= NAVBAR RIGHT ================= -->
+
                 <div
                     class="flex items-center mt-2 grow sm:mt-0 sm:mr-6
                     md:mr-0 lg:flex lg:basis-auto">
 
+
                     <!-- SEARCH -->
+
                     <div class="flex items-center md:ml-auto md:pr-4">
 
                         <div
@@ -359,6 +418,7 @@
 
                             </span>
 
+
                             <input
                                 type="text"
                                 class="pl-8.75 text-sm w-full rounded-lg
@@ -372,6 +432,7 @@
 
 
                     <!-- USER -->
+
                     <ul
                         class="flex flex-row justify-end pl-0 mb-0 list-none">
 
@@ -394,6 +455,7 @@
 
 
                         <!-- SETTINGS -->
+
                         <li class="flex items-center px-4">
 
                             <a
@@ -411,6 +473,7 @@
 
 
                         <!-- NOTIFICATION -->
+
                         <li class="relative flex items-center pr-2">
 
                             <a
@@ -430,15 +493,19 @@
             </div>
 
         </nav>
-        <!-- END NAVBAR -->
 
 
+        <!-- ================================================= -->
         <!-- CONTENT -->
+        <!-- ================================================= -->
+
         <div class="w-full px-6 py-6 mx-auto">
 
             <div class="flex flex-wrap -mx-3">
 
+
                 <!-- CARD -->
+
                 <div class="w-full max-w-full px-3 mb-6">
 
                     <div
@@ -448,11 +515,16 @@
                         <div class="p-6">
 
                             <h5 class="mb-2 font-bold text-slate-700">
+
                                 Selamat Datang di Dashboard
+
                             </h5>
 
+
                             <p class="mb-0 text-sm">
+
                                 Sistem SMK YPC TASIKMALAYA
+
                             </p>
 
                         </div>
@@ -464,10 +536,12 @@
             </div>
 
         </div>
-        <!-- END CONTENT -->
 
 
+        <!-- ================================================= -->
         <!-- FOOTER -->
+        <!-- ================================================= -->
+
         <footer class="pt-4">
 
             <div class="w-full px-6 mx-auto">
@@ -475,6 +549,7 @@
                 <div
                     class="flex flex-wrap items-center -mx-3
                     lg:justify-between">
+
 
                     <div
                         class="w-full max-w-full px-3 mt-0 mb-6
@@ -489,7 +564,7 @@
                                 document.write(new Date().getFullYear());
                             </script>
 
-                            MTs YAPPENA
+                            SMK YPC TASIKMALAYA
 
                         </div>
 
@@ -505,36 +580,39 @@
                             mb-0 list-none lg:justify-end">
 
                             <li>
+
                                 <a
                                     href="#"
-                                    class="block px-4 text-sm
-                                    text-slate-500">
+                                    class="block px-4 text-sm text-slate-500">
 
                                     About Us
 
                                 </a>
+
                             </li>
 
                             <li>
+
                                 <a
                                     href="#"
-                                    class="block px-4 text-sm
-                                    text-slate-500">
+                                    class="block px-4 text-sm text-slate-500">
 
                                     Blog
 
                                 </a>
+
                             </li>
 
                             <li>
+
                                 <a
                                     href="#"
-                                    class="block px-4 text-sm
-                                    text-slate-500">
+                                    class="block px-4 text-sm text-slate-500">
 
                                     License
 
                                 </a>
+
                             </li>
 
                         </ul>
@@ -546,21 +624,24 @@
             </div>
 
         </footer>
-        <!-- END FOOTER -->
 
     </main>
+
+
+    <!-- ===================================================== -->
     <!-- END MAIN -->
+    <!-- ===================================================== -->
 
 
     <!-- SCRIPTS -->
 
     <script
-        src="./assets/js/plugins/chartjs.min.js"
+        src="{{ asset('js/plugins/chartjs.min.js') }}"
         async>
     </script>
 
     <script
-        src="./assets/js/plugins/perfect-scrollbar.min.js"
+        src="{{ asset('js/plugins/perfect-scrollbar.min.js') }}"
         async>
     </script>
 
@@ -571,7 +652,7 @@
     </script>
 
     <script
-        src="./assets/js/soft-ui-dashboard-tailwind.js?v=1.0.5"
+        src="{{ asset('js/soft-ui-dashboard-tailwind.js?v=1.0.5') }}"
         async>
     </script>
 

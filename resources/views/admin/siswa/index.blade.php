@@ -1,4 +1,3 @@
-```blade
 <!DOCTYPE html>
 
 <html lang="id">
@@ -39,7 +38,7 @@
             color: #94a3b8;
         }
 
-        /* TOMBOL AKSI */
+        /* TOMBOL EDIT */
         .btn-edit-siswa {
             display: inline-flex !important;
             align-items: center;
@@ -63,6 +62,7 @@
             color: white !important;
         }
 
+        /* TOMBOL HAPUS */
         .btn-hapus-siswa {
             display: inline-flex !important;
             align-items: center;
@@ -198,7 +198,7 @@
                 <li class="mt-0.5 w-full">
 
                     <a
-                        href="{{ route('admin.guru') }}"
+                        href="{{ route('admin.guru.index') }}"
                         class="py-2.7 text-sm my-0 mx-4 flex items-center
                         whitespace-nowrap px-4">
 
@@ -268,7 +268,7 @@
 
                 </li>
 
-                <!-- EKSTRAKURIKULER -->
+                <!-- EKSTRAKULIKULER -->
                 <li class="mt-0.5 w-full">
 
                     <a
@@ -285,7 +285,7 @@
                         </div>
 
                         <span class="ml-1">
-                            Kelola Ekstrakurikuler
+                            Kelola Ekstrakulikuler
                         </span>
 
                     </a>
@@ -652,15 +652,14 @@
 
                                         </td>
 
-                                        <!-- AKSI EDIT + HAPUS -->
-                                        <td
-                                            class="kolom-aksi px-6 py-4">
+                                        <!-- AKSI -->
+                                        <td class="kolom-aksi px-6 py-4">
 
                                             <div class="aksi-wrapper">
 
                                                 <!-- EDIT -->
                                                 <a
-                                                    href="{{ route('admin.siswa.addEdit', $item->id) }}"
+                                                    href="{{ route('admin.siswa.addEdit', Crypt::encrypt($item->id)) }}"
                                                     class="btn-edit-siswa">
 
                                                     <i

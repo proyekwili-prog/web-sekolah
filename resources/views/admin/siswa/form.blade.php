@@ -1,4 +1,3 @@
-```blade
 @extends('admin_app')
 
 @section('title', isset($siswa) ? 'Edit Siswa' : 'Tambah Siswa')
@@ -7,12 +6,12 @@
 
 <div class="row">
 
-    {{-- Form dibuat full width --}}
+    {{-- Form dibuat full width (col-12) agar leluasa dan rapi --}}
     <div class="col-12">
 
         <div class="card {{ isset($siswa) ? 'card-warning' : 'card-primary' }} card-outline shadow-sm mb-4">
 
-            {{-- Header --}}
+            {{-- Header card --}}
             <div class="card-header">
 
                 <h3 class="card-title mb-0">
@@ -24,7 +23,6 @@
                 </h3>
 
             </div>
-
 
             {{-- FORM --}}
             <form

@@ -1,6 +1,6 @@
 @extends('admin_app')
 
-@section('title', isset($siswa) ? 'Edit Data Siswa' : 'Tambah Data Siswa')
+@section('title', isset($guru) ? 'Edit Data Guru' : 'Tambah Data Guru')
 
 @section('content')
 <div style="background-color: #ffffff; padding: 28px; border-radius: 16px; box-shadow: 0 20px 27px 0 rgba(0,0,0,0.05); max-width: 800px; margin: 0 auto 24px auto;">
@@ -8,7 +8,7 @@
     <!-- HEADER FORM -->
     <div style="margin-bottom: 24px; border-bottom: 1px solid #e9ecef; padding-bottom: 16px;">
         <h4 style="margin: 0; font-weight: bold; color: #344767; font-size: 1.25rem;">
-            {{ isset($siswa) ? 'Form Edit Data Siswa' : 'Form Tambah Data Siswa Baru' }}
+            {{ isset($guru) ? 'Form Edit Data Guru' : 'Form Tambah Data Guru Baru' }}
         </h4>
         <p style="margin: 4px 0 0 0; color: #8392ab; font-size: 0.875rem;">
             Silakan isi formulir di bawah ini dengan lengkap dan benar.
@@ -27,58 +27,61 @@
     @endif
 
     <!-- FORM UTAMA -->
-    <form action="{{ route('admin.siswa.save', isset($siswa) ? Crypt::encrypt($siswa->id) : '') }}"
-          method="POST">
+    <form action="{{ route('admin.guru.save', isset($guru) ? Crypt::encrypt($guru->id) : '') }}"
+          method="POST"
+          enctype="multipart/form-data">
         @csrf
 
-        <!-- NISN -->
+        <!-- NAMA LENGKAP GURU -->
         <div style="margin-bottom: 20px;">
             <label style="display: block; font-weight: 600; color: #344767; font-size: 0.875rem; margin-bottom: 8px;">
-                NISN (10 Digit Angka) <span style="color: red;">*</span>
+                Nama Lengkap Guru <span style="color: red;">*</span>
             </label>
-            <input type="text" name="nisn" value="{{ old('nisn', $siswa->nisn ?? '') }}" required placeholder="Contoh: 0071234567"
+            <input type="text" name="nama_guru" value="{{ old('nama_guru', $guru->nama_guru ?? '') }}" required placeholder="Contoh: Drs. Ahmad Dahlan, M.Pd."
                    style="width: 100%; padding: 10px 14px; border: 1px solid #d2d6da; border-radius: 8px; font-size: 0.875rem; color: #495057; outline: none;">
         </div>
 
-        <!-- NAMA LENGKAP SISWA -->
+        <!-- NIP -->
         <div style="margin-bottom: 20px;">
             <label style="display: block; font-weight: 600; color: #344767; font-size: 0.875rem; margin-bottom: 8px;">
-                Nama Lengkap Siswa <span style="color: red;">*</span>
+                NIP (Nomor Induk Pegawai) <span style="color: #8392ab; font-weight: normal;">(Opsional)</span>
             </label>
-            <input type="text" name="nama_siswa" value="{{ old('nama_siswa', $siswa->nama_siswa ?? '') }}" required placeholder="Contoh: Muhammad Farhan"
+            <input type="text" name="nip" value="{{ old('nip', $guru->nip ?? '') }}" placeholder="Contoh: 19850101 201001 1 001"
                    style="width: 100%; padding: 10px 14px; border: 1px solid #d2d6da; border-radius: 8px; font-size: 0.875rem; color: #495057; outline: none;">
         </div>
 
-        <!-- JENIS KELAMIN -->
+        <!-- MATA PELAJARAN -->
         <div style="margin-bottom: 20px;">
             <label style="display: block; font-weight: 600; color: #344767; font-size: 0.875rem; margin-bottom: 8px;">
-                Jenis Kelamin <span style="color: red;">*</span>
+                Mata Pelajaran <span style="color: red;">*</span>
             </label>
-            <select name="jenis_kelamin" required style="width: 100%; padding: 10px 14px; border: 1px solid #d2d6da; border-radius: 8px; font-size: 0.875rem; color: #495057; outline: none; background-color: #fff;">
-                <option value="" disabled {{ old('jenis_kelamin', $siswa->jenis_kelamin ?? '') == '' ? 'selected' : '' }}>-- Pilih Jenis Kelamin --</option>
-                <option value="Laki-Laki" {{ old('jenis_kelamin', $siswa->jenis_kelamin ?? '') == 'Laki-Laki' ? 'selected' : '' }}>Laki-Laki</option>
-                <option value="Perempuan" {{ old('jenis_kelamin', $siswa->jenis_kelamin ?? '') == 'Perempuan' ? 'selected' : '' }}>Perempuan</option>
-            </select>
+            <input type="text" name="mapel" value="{{ old('mapel', $guru->mapel ?? '') }}" required placeholder="Contoh: Pemrograman Web & Perangkat Bergerak"
+                   style="width: 100%; padding: 10px 14px; border: 1px solid #d2d6da; border-radius: 8px; font-size: 0.875rem; color: #495057; outline: none;">
         </div>
 
-        <!-- TAHUN MASUK / ANGKATAN -->
+        <!-- FOTO GURU -->
         <div style="margin-bottom: 28px;">
             <label style="display: block; font-weight: 600; color: #344767; font-size: 0.875rem; margin-bottom: 8px;">
-                Tahun Masuk / Angkatan <span style="color: red;">*</span>
+                Foto Guru <span style="color: #8392ab; font-weight: normal;">(Opsional, format: JPG, PNG, WEBP, maks: 2MB)</span>
             </label>
-            <input type="number" name="tahun_masuk" value="{{ old('tahun_masuk', $siswa->tahun_masuk ?? date('Y')) }}" required placeholder="Contoh: 2026"
-                   style="width: 100%; padding: 10px 14px; border: 1px solid #d2d6da; border-radius: 8px; font-size: 0.875rem; color: #495057; outline: none;">
+            @if(isset($guru) && $guru->foto && file_exists(public_path('storage/' . $guru->foto)))
+                <div style="margin-bottom: 12px;">
+                    <img src="{{ asset('storage/' . $guru->foto) }}" alt="Foto Saat Ini" style="width: 80px; height: 80px; border-radius: 8px; object-fit: cover; border: 1px solid #d2d6da;">
+                </div>
+            @endif
+            <input type="file" name="foto" accept="image/*"
+                   style="width: 100%; padding: 8px; border: 1px solid #d2d6da; border-radius: 8px; font-size: 0.875rem; color: #495057;">
         </div>
 
         <!-- TOMBOL AKSI -->
         <div style="display: flex; justify-content: flex-end; gap: 12px;">
-            <a href="{{ route('admin.siswa.index') }}"
-               style="background-color: #8392ab; color: #ffffff; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 0.875rem; display: inline-block;">
+            <a href="{{ route('admin.guru.index') }}"
+               style="background-color: #8392ab; color: #ffffff; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 0.875rem;">
                 Kembali
             </a>
             <button type="submit"
                     style="background: linear-gradient(310deg, #7928ca, #370b6d); color: #ffffff; border: none; padding: 10px 20px; border-radius: 8px; font-weight: bold; font-size: 0.875rem; cursor: pointer; box-shadow: 0 4px 6px rgba(50,50,93,.11);">
-                {{ isset($siswa) ? 'Update Data Siswa' : 'Simpan Data Siswa' }}
+                {{ isset($guru) ? 'Update Data Guru' : 'Simpan Data Guru' }}
             </button>
         </div>
     </form>

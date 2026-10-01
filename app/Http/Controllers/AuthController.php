@@ -18,25 +18,29 @@ class AuthController extends Controller
         $credentials = $request->validate(
             [
                 'email' => 'required|email',
-                'password' => 'required'
+                'password' => 'required',
             ],
             [
                 'email.required' => 'Email wajib diisi',
                 'email.email' => 'Email tidak valid',
-                'password.required' => 'password wajib diisi'
-
+                'password.required' => 'Password wajib diisi',
             ]
         );
 
         if (Auth::attempt($credentials)) {
+
             $request->session()->regenerate();
-            return redirect()->intended(route('admin.dashboard'))->with('success', 'Selamat Datang kembali' . Auth::user()->name .'!');
+
+            return redirect()
+                ->route('admin.dashboard')
+                ->with('success', 'Selamat Datang kembali ' . Auth::user()->name . '!');
         }
-        return back()->withErrors(
-            [
-                'email' => 'kombinasi alamat email atau kata sandi tidak sesuai',
-            ]
-        )->onlyInput('email');
+
+        return back()
+            ->withErrors([
+                'email' => 'Kombinasi alamat email atau kata sandi tidak sesuai',
+            ])
+            ->onlyInput('email');
     }
     public function logout(Request $request)
     {

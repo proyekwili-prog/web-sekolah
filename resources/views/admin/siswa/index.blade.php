@@ -1,754 +1,88 @@
-<!DOCTYPE html>
-
-<html lang="id">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('img/apple-icon.png') }}">
-    <link rel="icon" type="image/png" href="{{ asset('img/favicon.png') }}">
-
-    <title>Kelola Siswa</title>
-
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
-
-    <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
-
-    <link href="{{ asset('css/nucleo-icons.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/nucleo-svg.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/soft-ui-dashboard-tailwind.css') }}" rel="stylesheet">
-
-    <style>
-        .foto-siswa {
-            width: 60px;
-            height: 60px;
-            object-fit: cover;
-            border-radius: 10px;
-        }
-
-        .foto-default {
-            width: 60px;
-            height: 60px;
-            border-radius: 10px;
-            background: #f1f5f9;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #94a3b8;
-        }
-
-        /* TOMBOL EDIT */
-        .btn-edit-siswa {
-            display: inline-flex !important;
-            align-items: center;
-            justify-content: center;
-            min-width: 75px;
-            height: 36px;
-            padding: 0 12px;
-            border-radius: 8px;
-            background: #3b82f6 !important;
-            color: white !important;
-            font-size: 12px;
-            font-weight: 700;
-            text-decoration: none !important;
-            border: none;
-            cursor: pointer;
-            white-space: nowrap;
-        }
-
-        .btn-edit-siswa:hover {
-            background: #2563eb !important;
-            color: white !important;
-        }
-
-        /* TOMBOL HAPUS */
-        .btn-hapus-siswa {
-            display: inline-flex !important;
-            align-items: center;
-            justify-content: center;
-            min-width: 75px;
-            height: 36px;
-            padding: 0 12px;
-            border-radius: 8px;
-            background: #ef4444 !important;
-            color: white !important;
-            font-size: 12px;
-            font-weight: 700;
-            text-decoration: none !important;
-            border: none;
-            cursor: pointer;
-            white-space: nowrap;
-        }
-
-        .btn-hapus-siswa:hover {
-            background: #dc2626 !important;
-            color: white !important;
-        }
-
-        .kolom-aksi {
-            width: 190px !important;
-            min-width: 190px !important;
-            text-align: center !important;
-        }
-
-        .aksi-wrapper {
-            display: flex !important;
-            align-items: center !important;
-            justify-content: center !important;
-            gap: 8px !important;
-            width: 100%;
-            min-width: 170px;
-        }
-    </style>
-
-</head>
-
-<body class="m-0 font-sans antialiased font-normal text-base leading-default bg-gray-50 text-slate-500">
-
-    <!-- ===================================================== -->
-    <!-- SIDEBAR -->
-    <!-- ===================================================== -->
-
-    <aside
-        class="max-w-62.5 ease-nav-brand z-990 fixed inset-y-0 my-4 ml-4 block w-full
-        -translate-x-full flex-wrap items-center justify-between overflow-y-auto
-        rounded-2xl border-0 bg-white p-0 antialiased shadow-none
-        transition-transform duration-200 xl:left-0 xl:translate-x-0
-        xl:bg-transparent">
-
-        <!-- LOGO -->
-        <div class="h-19.5">
-
-            <a
-                class="block px-8 py-6 m-0 text-sm whitespace-nowrap text-slate-700"
-                href="{{ route('admin.dashboard') }}">
-
-                <img
-                    src="{{ asset('img/logo-ct.png') }}"
-                    class="inline h-full max-w-full max-h-8"
-                    alt="logo">
-
-                <span class="ml-1 font-semibold">
-                    SMK YPC TASIKMALAYA
-                </span>
-
-            </a>
-
-        </div>
-
-        <hr
-            class="h-px mt-0 bg-transparent
-            bg-gradient-to-r from-transparent via-black/40 to-transparent">
-
-        <!-- MENU -->
-        <div class="items-center block w-auto max-h-screen overflow-auto h-sidenav">
-
-            <ul class="flex flex-col pl-0 mb-0">
-
-                <!-- DASHBOARD -->
-                <li class="mt-0.5 w-full">
-
-                    <a
-                        href="{{ route('admin.dashboard') }}"
-                        class="py-2.7 text-sm my-0 mx-4 flex items-center
-                        whitespace-nowrap px-4">
-
-                        <div
-                            class="mr-2 flex h-8 w-8 items-center justify-center
-                            rounded-lg bg-white shadow-soft-2xl">
-
-                            <i class="fas fa-home text-slate-800 text-xs"></i>
-
-                        </div>
-
-                        <span class="ml-1">
-                            Dashboard
-                        </span>
-
-                    </a>
-
-                </li>
-
-                <!-- PROFILE -->
-                <li class="mt-0.5 w-full">
-
-                    <a
-                        href="{{ route('admin.profile') }}"
-                        class="py-2.7 text-sm my-0 mx-4 flex items-center
-                        whitespace-nowrap px-4">
-
-                        <div
-                            class="mr-2 flex h-8 w-8 items-center justify-center
-                            rounded-lg bg-white shadow-soft-2xl">
-
-                            <i class="fas fa-school text-slate-800 text-xs"></i>
-
-                        </div>
-
-                        <span class="ml-1">
-                            Profile Sekolah
-                        </span>
-
-                    </a>
-
-                </li>
-
-                <!-- GURU -->
-                <li class="mt-0.5 w-full">
-
-                    <a
-                        href="{{ route('admin.guru.index') }}"
-                        class="py-2.7 text-sm my-0 mx-4 flex items-center
-                        whitespace-nowrap px-4">
-
-                        <div
-                            class="mr-2 flex h-8 w-8 items-center justify-center
-                            rounded-lg bg-white shadow-soft-2xl">
-
-                            <i class="fas fa-chalkboard-teacher text-slate-800 text-xs"></i>
-
-                        </div>
-
-                        <span class="ml-1">
-                            Kelola Guru
-                        </span>
-
-                    </a>
-
-                </li>
-
-                <!-- SISWA AKTIF -->
-                <li class="mt-0.5 w-full">
-
-                    <a
-                        href="{{ route('admin.siswa.index') }}"
-                        class="py-2.7 shadow-soft-xl text-sm my-0 mx-4
-                        flex items-center whitespace-nowrap rounded-lg
-                        bg-white px-4 font-semibold text-slate-700">
-
-                        <div
-                            class="bg-gradient-to-tl from-purple-700 to-pink-500
-                            shadow-soft-2xl mr-2 flex h-8 w-8
-                            items-center justify-center rounded-lg">
-
-                            <i class="fas fa-user-graduate text-white text-xs"></i>
-
-                        </div>
-
-                        <span class="ml-1">
-                            Kelola Siswa
-                        </span>
-
-                    </a>
-
-                </li>
-
-                <!-- BERITA -->
-                <li class="mt-0.5 w-full">
-
-                    <a
-                        href="#"
-                        class="py-2.7 text-sm my-0 mx-4 flex items-center
-                        whitespace-nowrap px-4">
-
-                        <div
-                            class="mr-2 flex h-8 w-8 items-center justify-center
-                            rounded-lg bg-white shadow-soft-2xl">
-
-                            <i class="fas fa-newspaper text-slate-800 text-xs"></i>
-
-                        </div>
-
-                        <span class="ml-1">
-                            Kelola Berita
-                        </span>
-
-                    </a>
-
-                </li>
-
-                <!-- EKSTRAKULIKULER -->
-                <li class="mt-0.5 w-full">
-
-                    <a
-                        href="#"
-                        class="py-2.7 text-sm my-0 mx-4 flex items-center
-                        whitespace-nowrap px-4">
-
-                        <div
-                            class="mr-2 flex h-8 w-8 items-center justify-center
-                            rounded-lg bg-white shadow-soft-2xl">
-
-                            <i class="fas fa-users text-slate-800 text-xs"></i>
-
-                        </div>
-
-                        <span class="ml-1">
-                            Kelola Ekstrakulikuler
-                        </span>
-
-                    </a>
-
-                </li>
-
-                <!-- GALERI -->
-                <li class="mt-0.5 w-full">
-
-                    <a
-                        href="#"
-                        class="py-2.7 text-sm my-0 mx-4 flex items-center
-                        whitespace-nowrap px-4">
-
-                        <div
-                            class="mr-2 flex h-8 w-8 items-center justify-center
-                            rounded-lg bg-white shadow-soft-2xl">
-
-                            <i class="fas fa-images text-slate-800 text-xs"></i>
-
-                        </div>
-
-                        <span class="ml-1">
-                            Kelola Galeri
-                        </span>
-
-                    </a>
-
-                </li>
-
-            </ul>
-
-        </div>
-
-    </aside>
-
-    <!-- ===================================================== -->
-    <!-- KONTEN UTAMA -->
-    <!-- ===================================================== -->
-
-    <main
-        class="ease-soft-in-out xl:ml-68.5 relative h-full
-        max-h-screen bg-gray-50 transition-all duration-200">
-
-        <!-- NAVBAR -->
-        <nav
-            class="absolute z-20 flex flex-wrap items-center
-            justify-between w-full px-6 py-2 text-white">
-
-            <div
-                class="flex items-center justify-between
-                w-full px-6 py-1 mx-auto">
-
-                <div>
-
-                    <ol
-                        class="flex flex-wrap pt-1 pl-2 pr-4
-                        mr-12 bg-transparent rounded-lg">
-
-                        <li class="leading-normal text-sm">
-
-                            <a
-                                class="opacity-50"
-                                href="{{ route('admin.dashboard') }}">
-
-                                Pages
-
-                            </a>
-
-                        </li>
-
-                        <li
-                            class="text-sm pl-2 capitalize leading-normal
-                            before:float-left before:pr-2
-                            before:content-['/']">
-
-                            Kelola Siswa
-
-                        </li>
-
-                    </ol>
-
-                    <h6
-                        class="mb-2 ml-2 font-bold text-white capitalize">
-
-                        Kelola Siswa
-
-                    </h6>
-
-                </div>
-
-            </div>
-
-        </nav>
-
-        <!-- ===================================================== -->
-        <!-- BANNER -->
-        <!-- ===================================================== -->
-
-        <div class="w-full px-6 mx-auto pt-20">
-
-            <div
-                class="relative flex items-center p-0 mt-6 overflow-hidden
-                bg-center bg-cover min-h-75 rounded-2xl">
-
-                <img
-                    src="{{ asset('img/curved-images/curved0.jpg') }}"
-                    class="absolute inset-0 w-full h-full object-cover"
-                    alt="Banner">
-
-                <span
-                    class="absolute inset-0 z-10
-                    bg-gradient-to-tl from-purple-700 to-pink-500
-                    opacity-60">
-                </span>
-
-                <div class="relative z-20 px-8">
-
-                    <h4 class="text-white font-bold text-2xl">
-                        Kelola Siswa
-                    </h4>
-
-                    <p class="text-white">
-                        Data Siswa SMK YPC TASIKMALAYA
-                    </p>
-
-                </div>
-
-            </div>
-
-        </div>
-
-        <!-- ===================================================== -->
-        <!-- DATA SISWA -->
-        <!-- ===================================================== -->
-
-        <div class="w-full px-6 mx-auto mt-6">
-
-            <div
-                class="relative flex flex-col min-w-0
-                break-words bg-white border-0 shadow-soft-xl
-                rounded-2xl">
-
-                <!-- HEADER -->
-                <div
-                    class="flex items-center justify-between
-                    p-6 pb-4 border-b border-gray-200">
-
-                    <div>
-
-                        <h6 class="font-bold text-slate-700 mb-1">
-                            Data Siswa
-                        </h6>
-
-                        <p class="text-sm text-slate-400 mb-0">
-                            Daftar siswa yang terdaftar
-                        </p>
-
-                    </div>
-
-                    <!-- TAMBAH SISWA -->
-                    <a
-                        href="{{ route('admin.siswa.addEdit') }}"
-                        style="
-                            display:inline-flex;
-                            align-items:center;
-                            padding:12px 20px;
-                            background:linear-gradient(135deg,#7e22ce,#ec4899);
-                            color:white;
-                            border-radius:8px;
-                            font-size:12px;
-                            font-weight:700;
-                            text-decoration:none;
-                        ">
-
-                        <i class="fas fa-plus mr-1"></i>
-                        Tambah Siswa
-
-                    </a>
-
-                </div>
-
-                <!-- SUCCESS -->
-                @if (session('success'))
-
-                    <div
-                        class="mx-6 mt-4 px-4 py-3
-                        text-sm text-green-700
-                        bg-green-100 rounded-lg">
-
-                        <i class="fas fa-check-circle mr-2"></i>
-
-                        {{ session('success') }}
-
-                    </div>
-
-                @endif
-
-                <!-- ERROR -->
-                @if ($errors->any())
-
-                    <div
-                        class="mx-6 mt-4 px-4 py-3
-                        text-sm text-red-700
-                        bg-red-100 rounded-lg">
-
-                        @foreach ($errors->all() as $error)
-
-                            <div>
-                                {{ $error }}
+@extends('admin_app')
+
+@section('title', 'Kelola Siswa')
+
+@section('content')
+<div style="background-color: #ffffff; padding: 24px; border-radius: 16px; box-shadow: 0 20px 27px 0 rgba(0,0,0,0.05); margin-bottom: 24px;">
+
+    <!-- HEADER: JUDUL & TOMBOL TAMBAH -->
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;">
+        <h4 style="margin: 0; font-weight: bold; color: #344767; font-size: 1.25rem;">
+            Daftar Siswa Sekolah
+        </h4>
+
+        <!-- TOMBOL TAMBAH SISWA -->
+        <a href="{{ route('admin.siswa.addEdit') }}"
+           style="background: linear-gradient(310deg, #7928ca, #370b6d); color: #ffffff; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 0.875rem; display: inline-flex; align-items: center; box-shadow: 0 4px 6px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08); transition: all 0.2s ease;">
+            + Tambah Siswa
+        </a>
+    </div>
+
+    <!-- TABEL DATA SISWA -->
+    <div style="overflow-x: auto;">
+        <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.875rem; color: #67748e;">
+            <thead>
+                <tr style="border-bottom: 1px solid #e9ecef; background-color: #f8f9fa;">
+                    <th style="padding: 12px 16px; text-align: center; width: 50px;">No</th>
+                    <th style="padding: 12px 16px;">NISN</th>
+                    <th style="padding: 12px 16px;">Nama Siswa</th>
+                    <th style="padding: 12px 16px; text-align: center;">Jenis Kelamin</th>
+                    <th style="padding: 12px 16px; text-align: center;">Tahun Masuk</th>
+                    <th style="padding: 12px 16px; text-align: center; width: 150px;">Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                @forelse ($siswa as $item)
+                    <tr style="border-bottom: 1px solid #e9ecef;">
+                        <td style="padding: 12px 16px; text-align: center;">{{ $loop->iteration }}</td>
+                        <td style="padding: 12px 16px;">
+                            <span style="background-color: #f1f3f5; padding: 4px 8px; border-radius: 4px; font-family: monospace;">
+                                {{ $item->nisn }}
+                            </span>
+                        </td>
+                        <td style="padding: 12px 16px; font-weight: 600; color: #344767;">{{ $item->nama_siswa }}</td>
+                        <td style="padding: 12px 16px; text-align: center;">
+                            @if ($item->jenis_kelamin == 'Laki-Laki')
+                                <span style="background-color: #e7f5ff; color: #1c7ed6; padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: bold;">
+                                    Laki-Laki
+                                </span>
+                            @else
+                                <span style="background-color: #fff0f6; color: #d6336c; padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: bold;">
+                                    Perempuan
+                                </span>
+                            @endif
+                        </td>
+                        <td style="padding: 12px 16px; text-align: center;">{{ $item->tahun_masuk }}</td>
+                        <td style="padding: 12px 16px; text-align: center;">
+                            <div style="display: flex; gap: 6px; justify-content: center;">
+                                <a href="{{ route('admin.siswa.show', ['id' => Crypt::encrypt($item->id)]) }}"
+                                   style="background-color: #17a2b8; color: white; padding: 6px 10px; border-radius: 6px; text-decoration: none; font-size: 0.75rem; font-weight: bold;">
+                                    Detail
+                                </a>
+                                <a href="{{ route('admin.siswa.addEdit', ['id' => Crypt::encrypt($item->id)]) }}"
+                                   style="background-color: #ffc107; color: #212529; padding: 6px 10px; border-radius: 6px; text-decoration: none; font-size: 0.75rem; font-weight: bold;">
+                                    Edit
+                                </a>
+                                <form action="{{ route('admin.siswa.delete', ['id' => Crypt::encrypt($item->id)]) }}" method="POST" style="display: inline;" onsubmit="return confirm('Yakin ingin menghapus data ini?')">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" style="background-color: #dc3545; color: white; border: none; padding: 6px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: bold; cursor: pointer;">
+                                        Hapus
+                                    </button>
+                                </form>
                             </div>
-
-                        @endforeach
-
-                    </div>
-
-                @endif
-
-                <!-- ===================================================== -->
-                <!-- TABLE -->
-                <!-- ===================================================== -->
-
-                <div class="flex-auto p-6">
-
-                    <div class="overflow-x-auto">
-
-                        <table
-                            class="items-center w-full mb-0 align-top border-collapse"
-                            style="min-width:900px;">
-
-                            <!-- HEADER -->
-                            <thead>
-
-                                <tr>
-
-                                    <th
-                                        class="px-6 py-3 text-left
-                                        text-xxs font-bold uppercase
-                                        text-slate-400">
-
-                                        No
-
-                                    </th>
-
-                                    <th
-                                        class="px-6 py-3 text-left
-                                        text-xxs font-bold uppercase
-                                        text-slate-400">
-
-                                        NISN
-
-                                    </th>
-
-                                    <th
-                                        class="px-6 py-3 text-left
-                                        text-xxs font-bold uppercase
-                                        text-slate-400">
-
-                                        Nama Siswa
-
-                                    </th>
-
-                                    <th
-                                        class="px-6 py-3 text-left
-                                        text-xxs font-bold uppercase
-                                        text-slate-400">
-
-                                        Jenis Kelamin
-
-                                    </th>
-
-                                    <th
-                                        class="px-6 py-3 text-left
-                                        text-xxs font-bold uppercase
-                                        text-slate-400">
-
-                                        Tahun Masuk
-
-                                    </th>
-
-                                    <th
-                                        class="kolom-aksi px-6 py-3
-                                        text-center text-xxs
-                                        font-bold uppercase
-                                        text-slate-400">
-
-                                        Aksi
-
-                                    </th>
-
-                                </tr>
-
-                            </thead>
-
-                            <!-- DATA -->
-                            <tbody>
-
-                                @forelse ($siswa as $item)
-
-                                    <tr>
-
-                                        <!-- NO -->
-                                        <td class="px-6 py-4">
-
-                                            <p
-                                                class="mb-0 text-sm
-                                                font-semibold text-slate-700">
-
-                                                {{ $loop->iteration }}
-
-                                            </p>
-
-                                        </td>
-
-                                        <!-- NISN -->
-                                        <td class="px-6 py-4">
-
-                                            <p
-                                                class="mb-0 text-sm
-                                                font-semibold text-slate-700">
-
-                                                {{ $item->nisn }}
-
-                                            </p>
-
-                                        </td>
-
-                                        <!-- NAMA -->
-                                        <td class="px-6 py-4">
-
-                                            <p
-                                                class="mb-0 text-sm
-                                                font-semibold text-slate-700">
-
-                                                {{ $item->nama_siswa }}
-
-                                            </p>
-
-                                        </td>
-
-                                        <!-- JENIS KELAMIN -->
-                                        <td class="px-6 py-4">
-
-                                            <p
-                                                class="mb-0 text-sm
-                                                text-slate-500">
-
-                                                {{ $item->jenis_kelamin }}
-
-                                            </p>
-
-                                        </td>
-
-                                        <!-- TAHUN MASUK -->
-                                        <td class="px-6 py-4">
-
-                                            <p
-                                                class="mb-0 text-sm
-                                                text-slate-500">
-
-                                                {{ $item->tahun_masuk }}
-
-                                            </p>
-
-                                        </td>
-
-                                        <!-- AKSI -->
-                                        <td class="kolom-aksi px-6 py-4">
-
-                                            <div class="aksi-wrapper">
-
-                                                <!-- EDIT -->
-                                                <a
-                                                    href="{{ route('admin.siswa.addEdit', Crypt::encrypt($item->id)) }}"
-                                                    class="btn-edit-siswa">
-
-                                                    <i
-                                                        class="fas fa-edit"
-                                                        style="margin-right:5px;">
-                                                    </i>
-
-                                                    Edit
-
-                                                </a>
-
-                                                <!-- HAPUS -->
-                                                <form
-                                                    action="{{ route('admin.siswa.delete', $item->id) }}"
-                                                    method="POST"
-                                                    style="display:inline-block; margin:0;"
-                                                    onsubmit="return confirm('Yakin ingin menghapus data siswa ini?');">
-
-                                                    @csrf
-                                                    @method('DELETE')
-
-                                                    <button
-                                                        type="submit"
-                                                        class="btn-hapus-siswa">
-
-                                                        <i
-                                                            class="fas fa-trash"
-                                                            style="margin-right:5px;">
-                                                        </i>
-
-                                                        Hapus
-
-                                                    </button>
-
-                                                </form>
-
-                                            </div>
-
-                                        </td>
-
-                                    </tr>
-
-                                @empty
-
-                                    <tr>
-
-                                        <td
-                                            colspan="6"
-                                            class="px-6 py-10 text-center">
-
-                                            <i
-                                                class="fas fa-user-slash
-                                                text-4xl text-slate-300">
-                                            </i>
-
-                                            <p
-                                                class="mt-3 mb-0
-                                                text-sm text-slate-400">
-
-                                                Belum ada data siswa.
-
-                                            </p>
-
-                                        </td>
-
-                                    </tr>
-
-                                @endforelse
-
-                            </tbody>
-
-                        </table>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </main>
-
-    <!-- JAVASCRIPT -->
-
-    <script src="{{ asset('js/plugins/perfect-scrollbar.min.js') }}"></script>
-
-    <script src="{{ asset('js/soft-ui-dashboard-tailwind.js') }}"></script>
-
-</body>
-
-</html>
+                        </td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="6" style="padding: 24px; text-align: center; color: #8392ab;">
+                            Belum ada data siswa.
+                        </td>
+                    </tr>
+                @endforelse
+            </tbody>
+        </table>
+    </div>
+
+</div>
+@endsection

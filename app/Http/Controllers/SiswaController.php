@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Siswa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Validation\Rule;
 
 class SiswaController extends Controller
 {
@@ -26,11 +27,17 @@ class SiswaController extends Controller
         $siswa = null;
 
         if ($id) {
-            $id = Crypt::decrypt($id);
-            $siswa = Siswa::findOrFail($id);
+            try {
+                $id = Crypt::decrypt($id);
+                $siswa = Siswa::findOrFail($id);
+            } catch (\Exception $e) {
+                return redirect()
+                    ->route('admin.siswa.index')
+                    ->with('error', 'Data siswa tidak ditemukan.');
+            }
         }
 
-        return view('admin.siswa.add-edit', compact('siswa'));
+        return view('admin.siswa.form', compact('siswa'));
     }
 
     /**
@@ -38,29 +45,28 @@ class SiswaController extends Controller
      */
     public function save(Request $request, $id = null)
     {
-        // Jika ada ID, berarti sedang mengubah data.
+        $decryptedId = null;
+
+        // Dekripsi ID jika ada
         if ($id) {
             try {
-                $id = Crypt::decrypt($id);
-                $siswa = Siswa::findOrFail($id);
-
+                $decryptedId = Crypt::decrypt($id);
+                $siswa = Siswa::findOrFail($decryptedId);
             } catch (\Exception $e) {
                 return redirect()
                     ->route('admin.siswa.index')
                     ->with('error', 'Data siswa tidak ditemukan.');
             }
-
         } else {
-            // Jika tidak ada ID, berarti menambah data baru.
             $siswa = new Siswa();
         }
 
         // Validasi input.
         $request->validate([
-            'nisn'          => 'required|digits:10|unique:siswa,nisn,' . ($id ?? 'NULL') . ',id',
-            'nama_siswa'    => 'required|string|max:40',
-            'jenis_kelamin' => 'required|in:Laki-Laki,Perempuan',
-            'tahun_masuk'   => 'required|digits:4|integer',
+            'nisn'          => ['required', 'digits:10', Rule::unique('siswa', 'nisn')->ignore($decryptedId)],
+            'nama_siswa'    => ['required', 'string', 'max:40'],
+            'jenis_kelamin' => ['required', Rule::in(['Laki-Laki', 'Perempuan'])],
+            'tahun_masuk'   => ['required', 'digits:4', 'integer'],
         ], [
             'nisn.required'          => 'NISN wajib diisi.',
             'nisn.digits'            => 'NISN harus 10 digit angka.',
@@ -72,10 +78,10 @@ class SiswaController extends Controller
         ]);
 
         // Masukkan data ke model.
-        $siswa->nisn = $request->nisn;
-        $siswa->nama_siswa = $request->nama_siswa;
+        $siswa->nisn          = $request->nisn;
+        $siswa->nama_siswa    = $request->nama_siswa;
         $siswa->jenis_kelamin = $request->jenis_kelamin;
-        $siswa->tahun_masuk = $request->tahun_masuk;
+        $siswa->tahun_masuk   = $request->tahun_masuk;
 
         // Simpan data.
         $siswa->save();
@@ -84,7 +90,7 @@ class SiswaController extends Controller
             ->route('admin.siswa.index')
             ->with(
                 'success',
-                $id
+                $decryptedId
                     ? 'Data siswa berhasil diperbarui.'
                     : 'Data siswa berhasil disimpan.'
             );
@@ -97,7 +103,6 @@ class SiswaController extends Controller
     {
         try {
             $siswa = Siswa::findOrFail(Crypt::decrypt($id));
-
         } catch (\Exception $e) {
             return redirect()
                 ->route('admin.siswa.index')
@@ -114,7 +119,6 @@ class SiswaController extends Controller
     {
         try {
             $siswa = Siswa::findOrFail(Crypt::decrypt($id));
-
         } catch (\Exception $e) {
             return redirect()
                 ->route('admin.siswa.index')
